@@ -39,7 +39,7 @@ android {
 publishing {
     publications {
         create<MavenPublication>("release") {
-            groupId = "com.github"
+            groupId = "com.github.Batyrq14"
             artifactId = "chatlib"
             version = "1.0.6"
             afterEvaluate { from(components["release"]) }
