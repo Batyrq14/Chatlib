@@ -33,7 +33,7 @@ class ChatActivity : AppCompatActivity(), ChatWebSocketClient.MessageListener {
 
     private fun setupWebSocket() {
         try {
-            val serverUri = URI("wss://echo.websocket.org/")
+            val serverUri = URI("wss://ws.ifelse.io/")
             webSocketClient = ChatWebSocketClient(serverUri, this)
             webSocketClient?.connect()
         } catch (e: Exception) {
@@ -41,7 +41,9 @@ class ChatActivity : AppCompatActivity(), ChatWebSocketClient.MessageListener {
         }
     }
 
+
     private fun setupSendButton() {
+        binding.sendButton.isEnabled = false
         binding.sendButton.setOnClickListener {
             val message = binding.messageInput.text.toString().trim()
             if (message.isNotEmpty()) {
@@ -56,8 +58,12 @@ class ChatActivity : AppCompatActivity(), ChatWebSocketClient.MessageListener {
         adapter.addMessage(Message(message, true))
         scrollToBottom()
 
-        // Send message via WebSocket
-        webSocketClient?.send(message)
+        // Send message via WebSocket only if connected
+        if (webSocketClient?.isOpen == true) {
+            webSocketClient?.send(message)
+        } else {
+            Toast.makeText(this, "Not connected to chat server", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun scrollToBottom() {
@@ -76,6 +82,7 @@ class ChatActivity : AppCompatActivity(), ChatWebSocketClient.MessageListener {
     override fun onConnectionEstablished() {
         runOnUiThread {
             Toast.makeText(this, "Connected to chat server", Toast.LENGTH_SHORT).show()
+            binding.sendButton.isEnabled = true // Enable button once connected
         }
     }
 
