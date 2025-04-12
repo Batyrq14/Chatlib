@@ -41,7 +41,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github"
             artifactId = "chatlib"
-            version = "1.0.5"
+            version = "1.0.6"
             afterEvaluate { from(components["release"]) }
         }
     }
@@ -50,8 +50,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Batyrq14/ChatLib")
             credentials {
-                username = project.findProperty("GITHUB_USERNAME") as String? ?: ""
-                password = project.findProperty("GITHUB_TOKEN") as String? ?: ""
+                username = project.findProperty("Batyrq14") as String? ?: ""
+                password = project.findProperty("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") as String? ?: ""
             }
         }
     }
