@@ -41,7 +41,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github"
             artifactId = "chatlib"
-            version = "1.0.4"
+            version = "1.0.5"
             afterEvaluate { from(components["release"]) }
         }
     }
