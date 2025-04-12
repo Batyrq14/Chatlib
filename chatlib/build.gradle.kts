@@ -50,8 +50,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Batyrq14/ChatLib")
             credentials {
-                username = project.findProperty("GITHUB_USERNAME") as String? ?: ""
-                password = project.findProperty("GITHUB_TOKEN") as String? ?: ""
+                username = "Batyrq14"
+                password = "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"
             }
         }
     }
