@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -36,26 +38,37 @@ android {
         dataBinding = true
     }
 }
+// Load credentials from github.properties
+val githubProperties = Properties()
+val githubPropertiesFile = rootProject.file("github.properties")
+if (githubPropertiesFile.exists()) {
+    githubProperties.load(githubPropertiesFile.inputStream())
+}
+
 publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "com.github.Batyrq14"
             artifactId = "chatlib"
             version = "1.0.8"
-            afterEvaluate { from(components["release"]) }
+            afterEvaluate {
+                from(components["release"])
+            }
         }
     }
+
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Batyrq14/ChatLib")
+            url = uri("https://maven.pkg.github.com/Batyrq14/Chatlib")
             credentials {
-                username = project.findProperty("Batyrq14") as String? ?: ""
-                password = project.findProperty("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") as String? ?: ""
+                username = githubProperties["gpr.usr"] as String? ?: ""
+                password = githubProperties["gpr.key"] as String? ?: ""
             }
         }
     }
 }
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
