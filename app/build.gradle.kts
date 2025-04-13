@@ -38,6 +38,12 @@ android {
         viewBinding = true
         dataBinding = true
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {

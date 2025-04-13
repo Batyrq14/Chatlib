@@ -37,6 +37,12 @@ android {
         viewBinding = true
         dataBinding = true
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 // Load credentials from github.properties
 val githubProperties = Properties()
